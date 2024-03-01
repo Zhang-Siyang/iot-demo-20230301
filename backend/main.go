@@ -8,9 +8,11 @@ import (
 	"os"
 	"time"
 
-	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
+
+	mqtt "github.com/eclipse/paho.mqtt.golang"
 	sloggin "github.com/samber/slog-gin"
 )
 
@@ -34,7 +36,7 @@ func main() {
 	}
 
 	router := gin.New()
-	router.Use(sloggin.New(slog.Default()), gin.Recovery())
+	router.Use(sloggin.New(slog.Default()), gin.Recovery(), cors.Default())
 	router.POST("/api/open", handleOpen)
 	router.POST("/api/log", handleLog)
 
